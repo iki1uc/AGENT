@@ -45,3 +45,6 @@ AGENT_STATION.executeCopilot = function() {
 Status: FINALISIERT
 `;
 };
+import { SRC_RetrievalAPI } from "../api/retrieval.js";
+import { SRC_SearchAPI } from "../api/search.js";
+import { SRC_ChatAPI } from "../api/chat.js";
