@@ -36,6 +36,11 @@ Verbindungen:
 - Operator: CO
 - Priorität: PQ
 - Prozess: PP
+AGENT_STATION.executeCopilot = function() {
+    // hier startet dein Copilot‑Prozess
+    console.log("Copilot wurde gestartet.");
+    return "Copilot aktiv";
+};
 
 Status: FINALISIERT
 `;
