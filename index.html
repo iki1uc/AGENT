@@ -23,6 +23,17 @@ a { color:#6cf; text-decoration:none; font-weight:bold; }
 <script src="IDkoop.js"></script>
 <script src="IDneutral.js"></script>
 <script src="IDpook.js"></script>
+<!-- AGENT Station -->
+<div class="block">
+    <div class="title">AGENT‑Station</div>
+    <pre id="agent-doc"></pre>
+</div>
+
+<script type="module">
+import { AGENT_STATION } from "../AGENT/station.js";
+
+document.getElementById("agent-doc").innerText = AGENT_STATION.doc2();
+</script>
 
 </head>
 
