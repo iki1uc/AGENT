@@ -10,4 +10,3 @@ export const AGENT_STATION = Station("AGENT", {
     verhalten,
     präsenz
 });
-
