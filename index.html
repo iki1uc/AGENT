@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ANKER – S01 · iki1uc</title>
+
 <style>
 body { background:#000; color:#0f0; font-family:monospace; padding:40px; }
 h1 { color:#0f0; letter-spacing:4px; margin-bottom:30px; }
@@ -10,6 +11,8 @@ h1 { color:#0f0; letter-spacing:4px; margin-bottom:30px; }
 .title { font-size:22px; color:#6cf; margin-bottom:10px; }
 pre { background:#000; border-left:3px solid #6cf; padding:15px; margin-top:10px; white-space:pre-wrap; }
 a { color:#6cf; text-decoration:none; font-weight:bold; }
+button { background:#6cf; color:#000; padding:10px 20px; border:none; cursor:pointer; margin-top:10px; }
+button:hover { background:#9df; }
 </style>
 
 <!-- SYSTEM CORE MODULES -->
@@ -64,10 +67,14 @@ a { color:#6cf; text-decoration:none; font-weight:bold; }
 <div class="block">
     <div class="title">AGENT‑Station</div>
     <pre id="agent-doc"></pre>
+
+    <!-- Copilot Start Button -->
+    <button id="start-copilot">Copilot starten</button>
 </div>
 
 <!-- MODULE SCRIPT -->
 <script type="module">
+import { RESPO_STATION } from "../RESPO/station.js";
 import { AGENT_STATION } from "../AGENT/station.js";
 
 (async function () {
@@ -123,27 +130,32 @@ import { AGENT_STATION } from "../AGENT/station.js";
     document.getElementById("system-status").innerText =
         `Zeit: ${tem.timestamp}\nKernel: ${run8.run}\nSystem: OK`;
 
-<!-- AGENT Station -->
-<div class="block">
-    <div class="title">AGENT‑Station</div>
-    <pre id="agent-doc"></pre>
-</div>
-
-<script type="module">
-import { RESPO_STATION } from "../RESPO/station.js";
-import { AGENT_STATION } from "../AGENT/station.js";
-
-const trigger = RESPO_STATION.startCopilot();
-const result = AGENT_STATION.executeCopilot();
-
-document.getElementById("agent-doc").innerText =
-    `${trigger}\n${result}`;
-</script>
 
     /* -------------------------------
        AGENT STATION SICHTBAR MACHEN
     --------------------------------*/
     document.getElementById("agent-doc").innerText = AGENT_STATION.doc2();
+
+
+    /* -------------------------------
+       COPILOT STARTEN (RESPO → AGENT)
+    --------------------------------*/
+    RESPO_STATION.startCopilot = function() {
+        return "RESPO → AGENT: Copilot starten";
+    };
+
+    AGENT_STATION.executeCopilot = function() {
+        console.log("Copilot wurde gestartet.");
+        return "Copilot aktiv";
+    };
+
+    document.getElementById("start-copilot").onclick = () => {
+        const trigger = RESPO_STATION.startCopilot();
+        const result = AGENT_STATION.executeCopilot();
+
+        document.getElementById("agent-doc").innerText =
+            `${trigger}\n${result}`;
+    };
 
 })();
 </script>
