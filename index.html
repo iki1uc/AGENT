@@ -67,8 +67,6 @@ button:hover { background:#9df; }
 <div class="block">
     <div class="title">AGENT‑Station</div>
     <pre id="agent-doc"></pre>
-
-    <!-- Copilot Start Button -->
     <button id="start-copilot">Copilot starten</button>
 </div>
 
@@ -77,13 +75,18 @@ button:hover { background:#9df; }
 import { RESPO_STATION } from "../RESPO/station.js";
 import { AGENT_STATION } from "../AGENT/station.js";
 
+// API IMPORTS
+import { SRC_RetrievalAPI } from "../api/retrieval.js";
+import { SRC_SearchAPI } from "../api/search.js";
+import { SRC_ChatAPI } from "../api/chat.js";
+
 (async function () {
 
     /* -------------------------------
        ANKER DATEN LADEN
     --------------------------------*/
-    const anker = await fetch("ANKER.json").then(r => r.json()).catch(() => null);
-    const raw = await fetch("ANKER.raw").then(r => r.text()).catch(() => "");
+    const anker = await SRC_RetrievalAPI("ANKER.json");
+    const raw = await SRC_RetrievalAPI("ANKER.raw");
 
     document.getElementById("axis-list").innerText = raw || "Keine Achsen gefunden";
 
@@ -135,6 +138,16 @@ import { AGENT_STATION } from "../AGENT/station.js";
        AGENT STATION SICHTBAR MACHEN
     --------------------------------*/
     document.getElementById("agent-doc").innerText = AGENT_STATION.doc2();
+
+
+    /* -------------------------------
+       API TEST (Retrieval, Search, Chat)
+    --------------------------------*/
+    const data = await SRC_RetrievalAPI("ANKER.json");
+    const search = SRC_SearchAPI("axis", data);
+    const chat = SRC_ChatAPI("Starte Copilot");
+
+    console.log({ data, search, chat });
 
 
     /* -------------------------------
