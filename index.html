@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>ANKER – S01 · iki1uc</title>
+<div class="block">
+    <div class="title">AGENT‑Station</div>
+    <pre id="agent-doc"></pre>
+</div>
 
 <style>
 body { background:#000; color:#0f0; font-family:monospace; padding:40px; }
@@ -116,6 +120,9 @@ a { color:#6cf; text-decoration:none; font-weight:bold; }
 
     document.getElementById("system-status").innerText =
         `Zeit: ${tem.timestamp}\nKernel: ${run8.run}\nSystem: OK`;
+import { AGENT_STATION } from "../AGENT/station.js";
+
+document.getElementById("agent-doc").innerText = AGENT_STATION.doc2();
 
 })();
 </script>
