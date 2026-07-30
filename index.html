@@ -3,15 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>ANKER – S01 · iki1uc</title>
-import { RESPO_STATION } from "../RESPO/station.js";
-import { AGENT_STATION } from "../AGENT/station.js";
-
-const trigger = RESPO_STATION.startCopilot();
-const result = AGENT_STATION.executeCopilot();
-
-document.getElementById("agent-doc").innerText =
-    `${trigger}\n${result}`;
-
 <style>
 body { background:#000; color:#0f0; font-family:monospace; padding:40px; }
 h1 { color:#0f0; letter-spacing:4px; margin-bottom:30px; }
@@ -132,6 +123,22 @@ import { AGENT_STATION } from "../AGENT/station.js";
     document.getElementById("system-status").innerText =
         `Zeit: ${tem.timestamp}\nKernel: ${run8.run}\nSystem: OK`;
 
+<!-- AGENT Station -->
+<div class="block">
+    <div class="title">AGENT‑Station</div>
+    <pre id="agent-doc"></pre>
+</div>
+
+<script type="module">
+import { RESPO_STATION } from "../RESPO/station.js";
+import { AGENT_STATION } from "../AGENT/station.js";
+
+const trigger = RESPO_STATION.startCopilot();
+const result = AGENT_STATION.executeCopilot();
+
+document.getElementById("agent-doc").innerText =
+    `${trigger}\n${result}`;
+</script>
 
     /* -------------------------------
        AGENT STATION SICHTBAR MACHEN
