@@ -48,3 +48,22 @@ Status: FINALISIERT
 import { SRC_RetrievalAPI } from "../api/retrieval.js";
 import { SRC_SearchAPI } from "../api/search.js";
 import { SRC_ChatAPI } from "../api/chat.js";
+import { SRC_RetrievalAPI, SRC_SearchAPI, SRC_ChatAPI } from "./api.js";
+
+AGENT_STATION.tools = {
+    retrieve: SRC_RetrievalAPI,
+    search: SRC_SearchAPI,
+    chat: SRC_ChatAPI
+};
+
+AGENT_STATION.runRetrieve = async function(path) {
+    return await this.tools.retrieve(path);
+};
+
+AGENT_STATION.runSearch = function(query, dataset) {
+    return this.tools.search(query, dataset);
+};
+
+AGENT_STATION.runChat = function(message) {
+    return this.tools.chat(message, { agent: "AGENT" });
+};
