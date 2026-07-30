@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>ANKER – S01 · iki1uc</title>
+import { RESPO_STATION } from "../RESPO/station.js";
+import { AGENT_STATION } from "../AGENT/station.js";
+
+const trigger = RESPO_STATION.startCopilot();
+const result = AGENT_STATION.executeCopilot();
+
+document.getElementById("agent-doc").innerText =
+    `${trigger}\n${result}`;
 
 <style>
 body { background:#000; color:#0f0; font-family:monospace; padding:40px; }
