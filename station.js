@@ -1,4 +1,9 @@
 import { Station } from "../station.js";
+import { CO_GLOBAL_PANEL } from "../runtime/ani.js";
+import { CO_BUTTONS } from "../runtime/Hub.js";
+import { applyRespoFlowToPanel } from "../runtime/flow.js";
+import { renderGlobalPanelInMatrix } from "../runtime/mirror.js";
+
 import form from "./form/f.md";
 import struktur from "./struktur/s.md";
 import verhalten from "./verhalten/v.md";
@@ -10,6 +15,28 @@ export const AGENT_STATION = Station("AGENT", {
     verhalten,
     präsenz
 });
+
+// Dynamische XI / IX / X4 Präsenz
+AGENT_STATION.presenceMode = function() {
+    return CO_GLOBAL_PANEL.Agent.mode;
+};
+
+// Dynamische Präsenz-Ausgabe
+AGENT_STATION.presence = function() {
+    return {
+        status: "aktiv",
+        mode: this.presenceMode(),
+        präsenz: this.data.präsenz
+    };
+};
+
+// Copilot-Prozess
+AGENT_STATION.executeCopilot = function() {
+    console.log("AGENT Copilot gestartet.");
+    return `AGENT aktiv (${this.presenceMode()})`;
+};
+
+// Dokumentation
 AGENT_STATION.doc2 = function() {
     return `
 AGENT – Station Dokumentation (SRC‑Imperium)
@@ -27,6 +54,7 @@ ${this.data.verhalten}
 Präsenz:
 ${this.data.präsenz}
 
+Modus: ${this.presenceMode()}
 Degree: ${this.degree}
 Fulfillment: ${this.fulfillment}
 Manifest: ${this.manifest().manifest}
@@ -36,18 +64,12 @@ Verbindungen:
 - Operator: CO
 - Priorität: PQ
 - Prozess: PP
-AGENT_STATION.executeCopilot = function() {
-    // hier startet dein Copilot‑Prozess
-    console.log("Copilot wurde gestartet.");
-    return "Copilot aktiv";
-};
 
-Status: FINALISIERT
+Status: EVO‑LIERT
 `;
 };
-import { SRC_RetrievalAPI } from "../api/retrieval.js";
-import { SRC_SearchAPI } from "../api/search.js";
-import { SRC_ChatAPI } from "../api/chat.js";
+
+// API‑Tools
 import { SRC_RetrievalAPI, SRC_SearchAPI, SRC_ChatAPI } from "./api.js";
 
 AGENT_STATION.tools = {
@@ -56,6 +78,7 @@ AGENT_STATION.tools = {
     chat: SRC_ChatAPI
 };
 
+// Runtime‑Kompatibilität
 AGENT_STATION.runRetrieve = async function(path) {
     return await this.tools.retrieve(path);
 };
@@ -65,5 +88,5 @@ AGENT_STATION.runSearch = function(query, dataset) {
 };
 
 AGENT_STATION.runChat = function(message) {
-    return this.tools.chat(message, { agent: "AGENT" });
+    return this.tools.chat(message, { agent: "AGENT", mode: this.presenceMode() });
 };
