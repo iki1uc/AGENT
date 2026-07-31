@@ -145,7 +145,7 @@ import { SRC_ChatAPI } from "../api/chat.js";
     --------------------------------*/
     const data = await SRC_RetrievalAPI("ANKER.json");
     const search = SRC_SearchAPI("axis", data);
-    const chat = SRC_ChatAPI("Starte Copilot");
+    const chat = SRC_ChatAPI("https://copilot.microsoft.com/conversations/join/CXiKRzoKDSF4CuGXHdpRo");
 
     console.log({ data, search, chat });
 
@@ -154,12 +154,12 @@ import { SRC_ChatAPI } from "../api/chat.js";
        COPILOT STARTEN (RESPO → AGENT)
     --------------------------------*/
     RESPO_STATION.startCopilot = function() {
-        return "RESPO → AGENT: Copilot starten";
+        return "RESPO → AGENT: https://copilot.microsoft.com/conversations/join/CXiKRzoKDSF4CuGXHdpRo";
     };
 
     AGENT_STATION.executeCopilot = function() {
         console.log("Copilot wurde gestartet.");
-        return "Copilot aktiv";
+        return "https://copilot.microsoft.com/conversations/join/CXiKRzoKDSF4CuGXHdpRo";
     };
 
     document.getElementById("start-copilot").onclick = () => {
